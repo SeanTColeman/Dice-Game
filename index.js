@@ -19,6 +19,14 @@ function showResetButton() {
     resetBtn.style.display = "block"
 }
 
+//does not move to new round after the last roll of the game.
+function showLastRoundCount() {
+    if (roundCounter.textContent !== "SUDDEN DEATH") {
+        round--
+        roundCounter.textContent = `Round ${round}`
+    }
+}
+
 /* Hook up a click event listener to the Roll Dice Button. */
  rollBtn.addEventListener("click", function() {
     const randomNumber = Math.floor(Math.random() * 6) + 1
@@ -37,28 +45,30 @@ function showResetButton() {
         player2Dice.classList.remove("active")
         player1Dice.classList.add("active")
         message.textContent = "Player 1 Turn"
+       
+        if (roundCounter.textContent !== "SUDDEN DEATH") {
         round++
         roundCounter.textContent = `Round ${round}`
+        }
     }
     
     //if both are over 20 and tied, enter sudden death
     if (!player1Turn && player1Score >= 20 && player1Score === player2Score) {
         roundCounter.textContent = "SUDDEN DEATH"
     //Player 2 gets the last roll. Whoever has 20 or more wins. Then game resets.
-    } else if (!player1Turn && player1Score >= 20) {
+    } else if (!player1Turn && player1Score >= 20 && player1Score > player2Score) {
+        showLastRoundCount()
         message.textContent = "Player 1 Won 🥳"
         showResetButton()
         player2Dice.classList.remove("active")
         player1Dice.classList.add("active")
-        round--
-        roundCounter.textContent = `Round ${round}`
+        
     }  else if (!player1Turn && player2Score >= 20) {
+        showLastRoundCount()
         message.textContent = "Player 2 Won 🎉"
         showResetButton()
         player1Dice.classList.remove("active")
         player2Dice.classList.add("active")
-        round--
-        roundCounter.textContent = `Round ${round}`
     }
     //Next  players turn. 
     player1Turn = !player1Turn
@@ -74,7 +84,7 @@ function reset() {
     player2Score = 0
     player1Turn = true
     round = 1
-    roundCounter.textContent = round
+    roundCounter.textContent = `Round ${round}`
     player1Scoreboard.textContent = 0
     player2Scoreboard.textContent = 0
     player1Dice.textContent = "-"
@@ -91,5 +101,6 @@ function reset() {
 //Players should have an equal amount of turns - done
 //If both players are over 20 and tied, enter sudden death. -done
 //Round should not increase when the game is over. - done
-//After the sudden death round, the round text should still say sudden death
-//Style the round text
+//After the sudden death round, the round text should still say sudden death - done
+//Style the round text - done
+//add clickable modal that says game objective

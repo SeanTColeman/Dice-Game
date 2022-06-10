@@ -43,11 +43,16 @@ body {
     justify-content: center;
 }
 
+#roundCounter {
+    margin: 20px auto;
+    font-weight: bold;
+}
+
 button {
     color: #fff;
     padding: 20px 30px;
     font-size: 20px;
-    margin: 40px auto;
+    margin: 10px auto;
     border: none;
     border-radius: 5px;
     cursor: pointer;
