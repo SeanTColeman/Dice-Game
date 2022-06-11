@@ -74,9 +74,7 @@ function showLastRoundCount() {
     player1Turn = !player1Turn
 })
  
-resetBtn.addEventListener("click", function(){
-    reset()
-})
+resetBtn.addEventListener("click", reset)
 
 //Resets the game
 function reset() {
